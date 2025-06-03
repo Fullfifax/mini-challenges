@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mini challenges for Fun :)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        align-items: center;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .grid {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        max-width: 1000px;
+        width: 100%;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+        padding: 1.5rem;
+        text-align: center;
+        transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .card:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-5px);
+    }
+
+    .card a {
+        color: #ffdd57;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .footer {
+        font-size: 0.9rem;
+        margin-top: 3rem;
+        opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 Mini Challenges for Fun :)</h1>
+
+  <div class="grid">
+    <div class="card"><a href="challenge-01-random-quote/index.html">🎯 Random Quote Generator</a></div>
+  </div>
+
+  <div class="footer">
+    Built with 💙 for practice &amp; fun
+  </div>
+</body>
+</html>
