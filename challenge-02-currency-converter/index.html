@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Currency Converter with Flags</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+    <div class="converter-container" role="main" aria-label="Currency Converter">
+        <h2>Currency Converter</h2>
+    
+        <input
+          type="number"
+          id="amount"
+          placeholder="Enter amount"
+          min="0"
+          step="any"
+          aria-label="Amount to convert"
+        />
+    
+        <div class="row">
+          <select id="fromCurrency" aria-label="From Currency"></select>
+    
+          <button id="reverseBtn" title="Swap currencies" aria-label="Reverse currencies">
+            ⇄
+          </button>
+    
+          <select id="toCurrency" aria-label="To Currency"></select>
+        </div>
+    
+        <div class="flag-wrapper">
+          <input
+            type="text"
+            id="result"
+            disabled
+            placeholder=""
+            aria-live="polite"
+            aria-atomic="true"
+            aria-label="Converted amount"
+          />
+          <span class="flag-emoji" id="flagEmoji"></span>
+        </div>
+    
+        <button id="convertBtn">Convert</button>
+    </div>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
