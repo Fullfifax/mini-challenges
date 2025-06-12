@@ -22,7 +22,7 @@ async function getQuote() {
       quoteEl.innerText = quoteObj.content;
       authorEl.innerText = `— ${quoteObj.author.name}`;
     } catch (e) {
-      quoteEl.innerText = "Oops! The quote didn’t load. Try once more. (This is a free API, so errors like this can happen.";
+      quoteEl.innerText = "Oops! The quote didn’t load. Try once more. This is a free API, so errors like this can happen.";
       authorEl.innerText = "";
       console.error(e);
     }
