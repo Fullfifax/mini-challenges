@@ -3,6 +3,7 @@
 }
 
 body {
+    background-color: #003a6bde;
     color: #222;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
@@ -90,7 +91,9 @@ option {
 }
 
 .row {
+    align-items: center;
     display: flex;
+    flex-direction: column;
     gap: 14px;
     margin-bottom: 26px;
 }
@@ -105,13 +108,13 @@ option {
     background: #003a6b;
     border: none;
     border-radius: 12px;
-    box-shadow: 0 5px 10px rgba(255, 159, 28, 0.6);
     color: white;
     cursor: pointer;
     display: flex;
     flex-shrink: 0;
     font-size: 1.8rem;
     justify-content: center;
+    margin-top: 6px;
     padding: 0 18px;
     transition: background 0.3s ease, box-shadow 0.3s ease;
     user-select: none;
@@ -171,6 +174,7 @@ option {
 .flag-emoji {
     font-size: 28px;
     left: 16px;
+    margin-top: -16px;
     pointer-events: none;
     position: absolute;
     user-select: none;
@@ -179,6 +183,15 @@ option {
 input[disabled] {
     color: #444;
 }
+
+.exchange-rate {
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 26px;
+    text-align: center;
+}
+  
 
 @media (max-width: 450px) {
     .converter-container {

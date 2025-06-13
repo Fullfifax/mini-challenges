@@ -4,6 +4,7 @@ const amountInput = document.getElementById("amount");
 const resultInput = document.getElementById("result");
 const convertBtn = document.getElementById("convertBtn");
 const reverseBtn = document.getElementById("reverseBtn");
+const flagEmojiSpan = document.getElementById("flagEmoji");
 
 const currencies = [
   { code: "USD", name: "United States Dollar", flag: "🇺🇸" },
@@ -73,66 +74,31 @@ populateSelect(toCurrency);
 fromCurrency.value = "MGA";
 toCurrency.value = "EUR";
 
-async function convert() {
-  const amount = parseFloat(amountInput.value);
-  const from = fromCurrency.value;
-  const to = toCurrency.value;
+document.addEventListener("DOMContentLoaded", () => {
+  updateExchangeRate();
 
-  if (!amount || isNaN(amount) || amount <= 0) {
-    resultInput.value = "Please enter a valid amount";
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      `https://v6.exchangerate-api.com/v6/be4b8e9d46276b96fb82a54a/latest/${from}`
-    );
-    const data = await response.json();
-
-    if (data.result !== "success") {
-      resultInput.value =
-        "API error: " + (data["error-type"] || "Unknown error");
-      return;
-    }
-
-    if (!data.conversion_rates[to]) {
-      resultInput.value = "Conversion rate not available";
-      return;
-    }
-
-    const rate = data.conversion_rates[to];
-    const converted = (amount * rate).toFixed(2);
-    resultInput.value = `${converted} ${to}`;
-  } catch (error) {
-    resultInput.value = "Failed to fetch exchange rate. Please try again.";
-  }
-}
-
-convertBtn.addEventListener("click", convert);
-
-reverseBtn.addEventListener("click", () => {
-  const tempFrom = fromCurrency.value;
-  const tempTo = toCurrency.value;
-
-  fromCurrency.value = tempTo;
-  toCurrency.value = tempFrom;
-
-  const resultVal = parseFloat(resultInput.value);
-  const amountVal = parseFloat(amountInput.value);
-
-  if (!isNaN(amountVal) && !isNaN(resultVal)) {
-    amountInput.value = resultVal;
-    resultInput.value = "";
-  }
-
-  convert();
+  fromCurrency.addEventListener("change", updateExchangeRate);
+  toCurrency.addEventListener("change", updateExchangeRate);
 });
-
-const flagEmojiSpan = document.getElementById("flagEmoji");
 
 function showResultWithFlag(flag, amount, currency) {
   flagEmojiSpan.textContent = flag || "";
   resultInput.value = amount ? `${amount} ${currency}` : "";
+}
+
+async function updateExchangeRate() {
+  const from = fromCurrency.value;
+  const to = toCurrency.value;
+
+  try {
+    const response = await fetch(`https://v6.exchangerate-api.com/v6/be4b8e9d46276b96fb82a54a/latest/${from}`);
+    const data = await response.json();
+    const rate = data.conversion_rates[to];
+
+    document.getElementById("exchangeRate").textContent = `1 ${from} = ${rate.toFixed(4)} ${to}`;
+  } catch (error) {
+    document.getElementById("exchangeRate").textContent = "Taux indisponible pour le moment.";
+  }
 }
 
 async function convert() {
@@ -165,8 +131,31 @@ async function convert() {
     const flag = currencyInfo ? currencyInfo.flag : "";
 
     showResultWithFlag(flag, converted, to);
-  } catch {
+
+    document.getElementById("exchangeRate").textContent = `1 ${from} = ${rate.toFixed(4)} ${to}`;
+  } catch (error) {
     showResultWithFlag("", "");
     resultInput.placeholder = "Failed to fetch exchange rate";
   }
 }
+
+convertBtn.addEventListener("click", convert);
+
+reverseBtn.addEventListener("click", () => {
+  const tempFrom = fromCurrency.value;
+  const tempTo = toCurrency.value;
+
+  fromCurrency.value = tempTo;
+  toCurrency.value = tempFrom;
+
+  const resultVal = parseFloat(resultInput.value);
+  const amountVal = parseFloat(amountInput.value);
+
+  if (!isNaN(amountVal) && !isNaN(resultVal)) {
+    amountInput.value = resultVal;
+    resultInput.value = "";
+  }
+
+  updateExchangeRate();
+  convert();
+});
